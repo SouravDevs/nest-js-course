@@ -5,6 +5,7 @@ export class AlbumsController {
 
     @Get()
     getAlbums() {
+        
         return {
             message: "Albums"
         }
