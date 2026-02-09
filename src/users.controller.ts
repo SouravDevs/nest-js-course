@@ -1,39 +1,27 @@
-import { Controller, Get, Header, HttpCode, HttpStatus, Req, Res, Redirect } from "@nestjs/common";
-import type { Request, Response } from "express"
+import { Controller, Get, Param, Query, Headers } from "@nestjs/common";
+
+interface VideoParams {
+    id: number;
+    name: string
+}
+
+interface VideoQuery {
+    id: number;
+    name: string
+}
 
 @Controller("/users")
 export class UsersController {
 
-    @Get("/profile")
-    // @HttpCode(205)
-    @HttpCode(HttpStatus.ACCEPTED)
-    @Header("Cache-Control", 'none')
-    @Header("X-Name", 'Sourav')
-    @Redirect("/users/account", 302)
-    getProfile(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-        // res.status(301) // override
-        
-        const rn = (Math.random() * 10 + 1)
-        if(rn > 5) {
-            return {
-                url: "/users/account",
-                statusCode: 302
-            }
-        }
-        else {
-             return {
-                url: "/users/wallet",
-                statusCode: 302
-            }
-        }
+    @Get("/videos/:id/:name")
+    getVideos(@Param() params: VideoParams) {
+        console.log(params.id, params.name)
+        return "success"
     }
 
-    @Get("/account")
-    getAccount() {
-        return "Working account"
-    }
-    @Get("/wallet")
-    getWallet() {
-        return "Working wallet"
+    @Get("/videos")
+    getPhotos(@Query() query: VideoQuery, @Headers("hii") headers: Record<string, any>) {
+        console.log(headers)
+        return "success"
     }
 }
