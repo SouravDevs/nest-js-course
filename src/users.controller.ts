@@ -1,16 +1,13 @@
 import { Controller, Inject } from "@nestjs/common";
-import { Config } from "./config";
+import { Subject } from "rxjs";
 
 @Controller('/users')
 export class UsersController {
 
     constructor(
-        @Inject("DB") private db: string,
-        @Inject("Mail") private mails: string[],
-        private configs: Config
+        @Inject("EVENT_STORE") private eventBus: Subject<any>,
+        @Inject("DB") private db: any
     ) {
         console.log(this.db)
-        console.log(this.mails)
-        console.log(this.configs)
     }
 }
