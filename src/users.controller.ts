@@ -1,12 +1,15 @@
-import { Controller, Get, Ip } from "@nestjs/common";
+import { Controller } from "@nestjs/common";
+import { UsersStore } from "./users.store";
 
 @Controller('/users')
 export class UsersController {
 
-    @Get()
-    getIP(@Ip() ip: string) {
-        console.log(ip)
-        return 'success'
+    constructor(private usersStore: UsersStore) {
+        console.log(this.usersStore)
+    }
+
+    getUser() {
+        this.usersStore.getUsers()
     }
    
 }
