@@ -1,13 +1,14 @@
-import { Controller, Inject } from "@nestjs/common";
-import { Subject } from "rxjs";
+import { Controller, Get } from "@nestjs/common";
+import { UsersStore } from "./users.store";
 
 @Controller('/users')
 export class UsersController {
 
-    constructor(
-        @Inject("EVENT_STORE") private eventBus: Subject<any>,
-        @Inject("DB") private db: any
-    ) {
-        console.log(this.db)
+    constructor(private store: UsersStore) {}
+
+    @Get()
+    getUser() {
+        return "message"
     }
+    
 }
