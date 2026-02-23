@@ -1,0 +1,4 @@
+export enum OCCUPATION {
+    STUDENT = "STUDENT",
+    DEVELOPER = "DEVELOPER"
+}
