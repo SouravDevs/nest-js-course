@@ -9,16 +9,16 @@ export class Job {
     employer: string | Types.ObjectId | User | any
 
     @Prop({ required: true })
-    companyName: string | any;
+    companyName: string;
 
     @Prop({ required: true })
-    title: string | any;
+    title: string;
 
     @Prop({ required: true })
-    description: string | any;
+    description: string;
 
     @Prop({ required: true })
-    experience: number | any;
+    experience: number;
 
     @Prop({ default: [] })
     tags?: string[];
@@ -31,10 +31,14 @@ export class Job {
         enum: Object.keys(JOB_TYPE),
         required: true
     })
-    type: JOB_TYPE | any;
+    type: JOB_TYPE;
 
     @Prop({ type: AddressSchema, required: true })
-    location: Address | any
+    location: Address
 }
+
+export const JOB_MODEL = Job.name // Job
+
+export type JobDocument = Job & Document;
 
 export const jobSchema = SchemaFactory.createForClass(Job)

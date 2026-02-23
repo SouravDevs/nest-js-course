@@ -1,6 +1,7 @@
 import { Prop, raw, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ACCOUNT_STATUS, ACCOUNT_TYPE } from "src/constants/account.constants";
 import { Address, AddressSchema } from "../common/address.schema";
+import { Document } from "mongoose";
 
 @Schema({
     timestamps: true,
@@ -8,13 +9,13 @@ import { Address, AddressSchema } from "../common/address.schema";
 })
 export class User {
     @Prop({ required: true })
-    name: string | any;
+    name: string;
 
     @Prop({ required: true })
-    email: string | any
+    email: string
 
     @Prop({ required: true, select: false })
-    password: string | any
+    password: string
 
     age?: number
 
@@ -42,15 +43,17 @@ export class User {
     isEmailVerified?: boolean;
 
     @Prop({ type: AddressSchema, required: true })
-    address: Address | any;
+    address: Address;
 
     @Prop(raw({
         reference: { type: String },
         beta: { type: Boolean }
     }))
-    metadata?: Record<string, any> | any
+    metadata?: Record<string, any>
 }
 
 export const USER_MODEL = User.name // User
+
+export type UserDocument = User & Document;
 
 export const userSchema = SchemaFactory.createForClass(User)

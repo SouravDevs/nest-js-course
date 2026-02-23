@@ -5,16 +5,16 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 })
 export class Address {
     @Prop({ required: true })
-    address1: string | any;
+    address1: string;
 
-    @Prop()
-    address2: string | any;
+    @Prop({ required: true })
+    address2: string;
 
     @Prop()
     city?: string;
 
     @Prop({ required: true })
-    country: string | any;
+    country: string ;
 
     @Prop()
     state?: string;

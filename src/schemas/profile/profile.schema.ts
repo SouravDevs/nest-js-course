@@ -6,34 +6,36 @@ import { OCCUPATION } from "src/constants/profile.constants";
 })
 export class Profile {
     @Prop({ required: true })
-    firstName: string | any
+    firstName: string
 
     @Prop({ required: true })
-    lastName: string | any
+    lastName: string
 
     @Prop({ required: true })
-    age: number | any
+    age: number
 
     @Prop({ required: true })
-    phone: string | any
+    phone: string
 
     @Prop({
         type: String,
         enum: Object.keys(OCCUPATION),
         default: OCCUPATION.STUDENT
     })
-    occupation: OCCUPATION | any
+    occupation: OCCUPATION
 
     @Prop()
-    city?: string | any
+    city?: string
 
     @Prop()
-    state?: string | any
+    state?: string
 
     @Prop({ default: "India" })
-    country: string | any
+    country: string
 }
 
 export const PROFILE_MODEL = Profile.name // Profile
+
+export type ProfileDocument = Document & Profile
 
 export const profileSchema = SchemaFactory.createForClass(Profile)
