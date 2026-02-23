@@ -1,13 +1,17 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { JobsModule } from './jobs/jobs.module';
-import { AuthMiddleware } from './middlewares/auth.middleware';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [JobsModule]
+
+  // imports: [JobsModule, ConfigModule.forRoot()]
+
+  // If you have multiple .env file
+  imports: [JobsModule, ConfigModule.forRoot({
+    envFilePath: [".env"],
+    cache: true,
+    expandVariables: true,
+    isGlobal: true // make this ConfigModule global
+  })]
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    // consumer.apply(AuthMiddleware).forRoutes("*") // for each routes globally
-    consumer.apply(AuthMiddleware).forRoutes({ path: "*", method: RequestMethod.GET }) // for GET method of every controllers globally
-  }
-}
+export class AppModule { }
